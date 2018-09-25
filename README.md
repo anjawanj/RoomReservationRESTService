@@ -53,6 +53,12 @@ Reference: http://www.baeldung.com/rest-api-pagination-in-spring
 
 Reference: http://www.springboottutorial.com/spring-boot-profiles
 
+[7] Added Bean Validations:
+https://www.logicbig.com/tutorials/java-ee-tutorial/jpa/bean-validation.html
+
+[8] Added Swagger API Documentation
+https://dzone.com/articles/spring-boot-restful-api-documentation-with-swagger
+
 References:
 
 [1] https://www.linkedin.com/learning/spring-boot-essential-training
