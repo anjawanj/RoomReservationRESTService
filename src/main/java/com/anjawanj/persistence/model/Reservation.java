@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Future;
 import javax.persistence.JoinColumn;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -25,7 +26,12 @@ public class Reservation {
     private long id;
     
     @Column(name="RES_START_DATE")
+    @Future
     private Date startDate;
+    
+    @Column(name="RES_END_DATE")
+    @Future
+    private Date endDate;
     
     @OneToMany(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
     @JoinTable(name="Guest_Reservations",
@@ -79,8 +85,7 @@ public class Reservation {
 		this.endDate = endDate;
 	}
 
-	@Column(name="RES_END_DATE")
-    private Date endDate;
+	
     
 
     public long getId() {

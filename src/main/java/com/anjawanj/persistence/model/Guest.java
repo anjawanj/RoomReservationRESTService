@@ -8,6 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name="GUEST")
@@ -16,14 +21,26 @@ public class Guest implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="GUEST_ID")
     private long id;
+    
     @Column(name="FIRST_NAME")
+    @NotNull(message = "First Name cannot be null")
     private String firstName;
+    
+    @Size(min = 2, max = 200, message 
+    	      = "LAST_NAME must be between 2 and 200 characters")
     @Column(name="LAST_NAME")
     private String lastName;
+    
+    
+    @Email(message = "Email should be valid")
     @Column(name="EMAIL_ADDRESS")
+    @NotEmpty
     private String emailAddress;
+    
+    
     @Column(name="ADDRESS")
     private String address;
+    
     @Column(name="COUNTRY")
     private String country;
     @Column(name="STATE")

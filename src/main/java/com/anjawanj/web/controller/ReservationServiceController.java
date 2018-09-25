@@ -1,13 +1,9 @@
 package com.anjawanj.web.controller;
 
-import com.anjawanj.business.service.ReservationService;
-import com.anjawanj.persistence.model.Guest;
-import com.anjawanj.persistence.model.Reservation;
-import com.anjawanj.service.request.entity.NewReservation;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,18 +11,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.List;
+import com.anjawanj.business.service.ReservationService;
+import com.anjawanj.persistence.model.Reservation;
+import com.anjawanj.service.request.entity.NewReservation;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping(value = "/reservation/api/v1/reservations")
+@Api(value="ReservationService")
 public class ReservationServiceController {
 
 	@Autowired
@@ -34,6 +33,14 @@ public class ReservationServiceController {
 	
 	//Get all reservations 
 	//Use Paging to get limited results: e.g. /cars?offset=10&limit=5
+	@ApiOperation(value = "View a list of reservations", response = List.class)
+	@ApiResponses(value = {
+	        @ApiResponse(code = 200, message = "Successfully retrieved list"),
+	        @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+	        @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+	        @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+	}
+	)
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Reservation> getAllReservations(@RequestParam(defaultValue = "1") int pageNumber,@RequestParam(defaultValue = "10") int pageSize,
 			@RequestParam(value = "date", required=false) String dateString){
@@ -65,7 +72,7 @@ public class ReservationServiceController {
 	//Create new reservation
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Void> reserveRoomForCustomer(@Valid @RequestBody NewReservation reservation) {
+	public ResponseEntity<Void> reserveRoomForCustomer(@RequestBody NewReservation reservation) {
 
 		this.reservationService.reserveRoomForCustomer(reservation);
 		return null;

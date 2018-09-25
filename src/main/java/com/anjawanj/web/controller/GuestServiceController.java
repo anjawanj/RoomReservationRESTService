@@ -57,9 +57,9 @@ public class GuestServiceController {
 		}
 	
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/register")
+	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<?> registerCustomer(@Valid @RequestBody Guest guest, UriComponentsBuilder ucBuilder,
+	public ResponseEntity<?> registerGuest(@Valid @RequestBody Guest guest, UriComponentsBuilder ucBuilder,
 			HttpServletRequest request) {
 		this.reservationService.registerCustomer(guest);
 

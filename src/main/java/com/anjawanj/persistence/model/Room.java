@@ -14,12 +14,16 @@ public class Room {
     @Column(name="ROOM_ID")
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
+    
     @Column(name="NAME")
     private String name;
+    
     @Column(name="ROOM_NUMBER")
     private String number;
+    
     @Column(name="BED_INFO")
     private String bedInfo;
+    
     @Column(name="IS_RESERVED")
     private boolean isReserved;
 
